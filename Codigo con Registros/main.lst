@@ -1,0 +1,297 @@
+CCS PCH C Compiler, Version 5.025, 11996               28-Jan-22 16:41
+
+               Filename:   C:\Users\maria\Desktop\microsistemas\Practica 1 Microsistemas\main.lst
+
+               ROM used:   242 bytes (1%)
+                           Largest free fragment is 32526
+               RAM used:   22 (1%) at main() level
+                           27 (1%) worst case
+               Stack used: 1 locations
+               Stack size: 31
+
+*
+0000:  GOTO   002A
+.................... //Primera practica Microsistemas: 3 Secuencias con LEDs activadas mediante 3 botones 
+.................... //28 de Enero del 2022 
+.................... //Laboratorio de microsistemas 
+....................  
+.................... /* 
+.................... #include <18F4550.h> 
+....................  
+.................... #FUSES NOWDT                                       
+.................... #FUSES NOBROWNOUT               
+.................... #FUSES INTRC //Fuse para cristal interno 
+....................  
+.................... #use delay(clock=8M) 
+.................... #byte PORTB=0xF81 
+.................... //#byte PORTD=0xF83 
+.................... #byte PORTC=0xF82 
+....................  
+.................... void main() 
+.................... { 
+....................    //Secuencia 1 
+....................    int8 vector1[] = {0xFF,0x0,0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80}; 
+....................    int8 vector1_2[]={0x1,0x3,0x7,0xF,0x1F,0x3F,0x7F,0xFF}; 
+....................     
+....................    //Secuencia 2 
+....................    int8 vector2[] = {0x81,0xC3, 0xE7,0xFF,0x18,0x3C,0x7E, 0xFF}; 
+....................     
+....................    //Secuencia 3 
+....................    int8 vector3[]={0xCC,0x33,0xCC,0x33,0x55,0xAA,0xFF}; 
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       //Sec1 
+....................       if(input(PIN_C0) == 1) 
+....................       { 
+....................          for(int8 j=0;j<3;j++) 
+....................          { 
+....................           
+....................             for(int8 i=0;i<10;i++) 
+....................             { 
+....................                output_B(vector1[i]); 
+....................                delay_ms(100); 
+....................             } 
+....................          } 
+....................          for(int8 k=0;k<3;k++) 
+....................          { 
+....................                for(int8 n=0;n<8;n++) 
+....................                { 
+....................                   output_B(vector1_2[n]); 
+....................                   delay_ms(50); 
+....................                } 
+....................          } 
+....................          PORTB = 0; 
+....................               
+....................       } 
+....................        
+....................       //Sec2 
+....................        if(input(PIN_C7) == 1) 
+....................       { 
+....................       for(int8 i=0;i<5;i++) 
+....................       { 
+....................          for(int8 j=0;j<8;j++) 
+....................          { 
+....................             output_D(vector2[j]); 
+....................             delay_ms(100); 
+....................          } 
+....................       
+....................       } 
+....................          PORTD = 0; 
+....................       } 
+....................        
+....................         //Sec3 
+....................        if(input(PIN_C6) == 1) 
+....................       { 
+....................          for(int8 i=0;i<8;i++) 
+....................          { 
+....................             for(int8 j=0;j<6;j++) 
+....................             { 
+....................             output_D(vector3[j]); 
+....................             delay_ms(150); 
+....................             } 
+....................          } 
+....................          PORTD = 0; 
+....................       } 
+....................    } 
+.................... } 
+....................  
+.................... */ 
+....................  
+.................... #include <18F4550.h> 
+.................... //////////// Standard Header file for the PIC18F4550 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC18F4550 
+....................  
+.................... #list 
+....................  
+....................  
+.................... //Codigo con registros para una secuencia 
+....................  
+.................... //FUSES 
+.................... #FUSES NOWDT  //Fuse No watchdog timer 
+.................... //Fuse que hace el "switcheo" entre el cristal externo e interno o detiene al microcontrolador  
+.................... //en caso de que nuestro cristal externo este dañado 
+.................... #FUSES NOBROWNOUT  
+.................... #FUSES INTRC //Fuse para cristal interno 
+....................  
+.................... #use delay(clock=8M) 
+0004:  CLRF   FEA
+0006:  MOVLW  1B
+0008:  MOVWF  FE9
+000A:  MOVF   FEF,W
+000C:  BZ    0028
+000E:  MOVLW  02
+0010:  MOVWF  01
+0012:  CLRF   00
+0014:  DECFSZ 00,F
+0016:  BRA    0014
+0018:  DECFSZ 01,F
+001A:  BRA    0012
+001C:  MOVLW  97
+001E:  MOVWF  00
+0020:  DECFSZ 00,F
+0022:  BRA    0020
+0024:  DECFSZ FEF,F
+0026:  BRA    000E
+0028:  RETURN 0
+....................  
+.................... //Direcciones de memoria de los puertos (Pagina 68 del Datasheet del PIC18) 
+.................... #byte PORTB=0xF81 
+.................... #byte TRISB=0xF93 
+.................... #byte PORTD=0xF83 
+.................... #byte TRISD=0xF95 
+....................  
+.................... void main() 
+002A:  CLRF   FF8
+002C:  BCF    FD0.7
+002E:  MOVLW  70
+0030:  MOVWF  FD3
+0032:  MOVF   FD3,W
+0034:  MOVF   FC1,W
+0036:  ANDLW  C0
+0038:  IORLW  0F
+003A:  MOVWF  FC1
+003C:  MOVLW  07
+003E:  MOVWF  FB4
+.................... { 
+....................    //Declaracion de la secuencia 1 
+....................    int8 vector1[] = {0xFF,0x0,0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80}; 
+0040:  SETF   05
+0042:  CLRF   06
+0044:  MOVLW  01
+0046:  MOVWF  07
+0048:  MOVLW  02
+004A:  MOVWF  08
+004C:  MOVLW  04
+004E:  MOVWF  09
+0050:  MOVLW  08
+0052:  MOVWF  0A
+0054:  MOVLW  10
+0056:  MOVWF  0B
+0058:  MOVLW  20
+005A:  MOVWF  0C
+005C:  MOVLW  40
+005E:  MOVWF  0D
+0060:  MOVLW  80
+0062:  MOVWF  0E
+....................    int8 vector1_2[]={0x1,0x3,0x7,0xF,0x1F,0x3F,0x7F,0xFF}; 
+0064:  MOVLW  01
+0066:  MOVWF  0F
+0068:  MOVLW  03
+006A:  MOVWF  10
+006C:  MOVLW  07
+006E:  MOVWF  11
+0070:  MOVLW  0F
+0072:  MOVWF  12
+0074:  MOVLW  1F
+0076:  MOVWF  13
+0078:  MOVLW  3F
+007A:  MOVWF  14
+007C:  MOVLW  7F
+007E:  MOVWF  15
+0080:  SETF   16
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       TRISB=0x01; //Primer bit del puerto B como entrada para el boton 
+0082:  MOVLW  01
+0084:  MOVWF  F93
+....................       TRISD=0x00; //8 terminales de salida para el puerto D 
+0086:  CLRF   F95
+....................        
+....................       //Enmascaramiento: Operacion logica a nivel de bits 
+....................       //00000001 & 00000001 
+....................       if(PORTB & 0x01) 
+0088:  BTFSS  F81.0
+008A:  BRA    00EE
+....................       { 
+....................          for(int8 j=0;j<3;j++) 
+008C:  CLRF   17
+008E:  MOVF   17,W
+0090:  SUBLW  02
+0092:  BNC   00BC
+....................          { 
+....................           
+....................             for(int8 i=0;i<10;i++) 
+0094:  CLRF   18
+0096:  MOVF   18,W
+0098:  SUBLW  09
+009A:  BNC   00B8
+....................             { 
+....................                PORTD=vector1[i]; 
+009C:  CLRF   03
+009E:  MOVF   18,W
+00A0:  ADDLW  05
+00A2:  MOVWF  FE9
+00A4:  MOVLW  00
+00A6:  ADDWFC 03,W
+00A8:  MOVWF  FEA
+00AA:  MOVFF  FEF,F83
+....................                delay_ms(100); 
+00AE:  MOVLW  64
+00B0:  MOVWF  1B
+00B2:  RCALL  0004
+00B4:  INCF   18,F
+00B6:  BRA    0096
+....................             } 
+00B8:  INCF   17,F
+00BA:  BRA    008E
+....................          } 
+....................          for(int8 k=0;k<5;k++) 
+00BC:  CLRF   19
+00BE:  MOVF   19,W
+00C0:  SUBLW  04
+00C2:  BNC   00EC
+....................          { 
+....................                for(int8 n=0;n<8;n++) 
+00C4:  CLRF   1A
+00C6:  MOVF   1A,W
+00C8:  SUBLW  07
+00CA:  BNC   00E8
+....................                { 
+....................                   PORTD=vector1_2[n]; 
+00CC:  CLRF   03
+00CE:  MOVF   1A,W
+00D0:  ADDLW  0F
+00D2:  MOVWF  FE9
+00D4:  MOVLW  00
+00D6:  ADDWFC 03,W
+00D8:  MOVWF  FEA
+00DA:  MOVFF  FEF,F83
+....................                   delay_ms(50); 
+00DE:  MOVLW  32
+00E0:  MOVWF  1B
+00E2:  RCALL  0004
+00E4:  INCF   1A,F
+00E6:  BRA    00C6
+....................                } 
+00E8:  INCF   19,F
+00EA:  BRA    00BE
+....................          } 
+....................          PORTD = 0x00; 
+00EC:  CLRF   F83
+....................        
+....................       } 
+00EE:  BRA    0082
+....................        
+....................    } 
+.................... } 
+00F0:  SLEEP 
+
+Configuration Fuses:
+   Word  1: C93F   PLL12 CPUDIV4 USBDIV INTRC FCMEN IESO
+   Word  2: 1E38   PUT NOBROWNOUT BORV21 VREGEN NOWDT WDT32768
+   Word  3: 8700   CCP2C1 PBADEN LPT1OSC MCLR
+   Word  4: 00A1   STVREN NOLVP ICSP2 NOXINST NODEBUG
+   Word  5: C00F   NOPROTECT NOCPB NOCPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB
