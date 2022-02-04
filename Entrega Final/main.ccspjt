@@ -1,0 +1,74 @@
+[PROJECT]
+Target=main.hex
+Processor_Text=PIC18F4550
+CCSVerions=5.025
+Compiler=PCH
+CCSVersion=5.025
+[Target Data]
+FileList=main.c
+[Directories]
+Include=
+[C:\Users\maria\Desktop\microsistemas\prog1\main]
+Type=4
+[mru-list]
+1=main.c
+
+[ProjectLog]
+Days=3
+D1=27-01-2022
+D1_L=21
+D1_L1=[63814]Project Opened.
+D1_L2=[63834]Started Editing.
+D1_L3=[64917]Stopped Editing.
+D1_L4=[65264]Started Editing.
+D1_L5=[65564]Stopped Editing.
+TotalEdit=101
+TotalDebug=0
+D1_E=14
+D1_D=0
+D1_L6=[73095]Project Closed.
+D1_L7=[75067]Project Opened.
+D1_L8=[75112]Started Editing.
+D1_L9=[75714]Stopped Editing.
+D1_L10=[75769]Started Editing.
+D1_L11=[77050]Stopped Editing.
+D1_L12=[77091]Started Editing.
+D1_L13=[78552]Stopped Editing.
+D1_L14=[78565]Started Editing.
+D1_L15=[78867]Stopped Editing.
+D1_L16=[80397]Started Editing.
+D1_L17=[80697]Stopped Editing.
+D1_L18=[82146]Started Editing.
+D1_L19=[82583]Stopped Editing.
+D1_L20=[84041]Started Editing.
+D1_L21=[84857]Stopped Editing.
+D2=28-01-2022
+D2_L=11
+D2_L1=[29536]Started Editing.
+D2_L2=[29727]Stopped Editing.
+D2_E=87
+D2_D=0
+D2_L3=[29727]Project Closed.
+D2_L4=[57889]Project Opened.
+D2_L5=[58000]Started Editing.
+D2_L6=[58633]Stopped Editing.
+D2_L7=[58659]Started Editing.
+D2_L8=[60206]Stopped Editing.
+D2_L9=[60213]Project Closed.
+D2_L10=[60266]Project Opened.
+D2_L11=[60281]Project Closed.
+D3=03-02-2022
+D3_L=3
+D3_L1=[78724]Project Opened.
+D3_L2=[78743]Started Editing.
+D3_L3=[80823]Stopped Editing.
+
+[Opened Files]
+1=main.c
+2=
+3=
+[main.c]
+Type=4
+[Units]
+Count=1
+1=main (main)
